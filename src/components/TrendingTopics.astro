@@ -1,0 +1,25 @@
+---
+// This is a placeholder for the actual trending topics data
+const trendingTopics = [
+  { id: 1, title: "Kendrick Lamar's New Album Drops", category: "New Music" },
+  { id: 2, title: "The Rise of Drill Music in the UK", category: "Features" },
+  { id: 3, title: "Drake vs. The World: A History of Beefs", category: "Opinion" },
+  { id: 4, title: "How TikTok is Changing the Music Industry", category: "Industry News" },
+  { id: 5, title: "The 25 Greatest Hip Hop Albums of All Time", category: "Lists" },
+];
+---
+
+<aside class="bg-charcoal p-6 rounded-lg">
+  <h3 class="text-2xl font-heading text-electric-gold mb-6">Trending Topics</h3>
+  <ul class="space-y-4">
+    {trendingTopics.map((topic, index) => (
+      <li class="flex items-center">
+        <span class="text-3xl font-bold text-ghost-white/50 mr-4">{index + 1}</span>
+        <div>
+          <a href="#" class="text-lg font-bold text-ghost-white hover:text-electric-gold transition-colors">{topic.title}</a>
+          <p class="text-sm text-silver">{topic.category}</p>
+        </div>
+      </li>
+    ))}
+  </ul>
+</aside>

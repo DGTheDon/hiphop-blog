@@ -1,0 +1,23 @@
+---
+// This is a placeholder for the actual artist data
+const artists = [
+  { name: "J. Cole", image: "/src/assets/blog-placeholder-1.jpg", followers: "15.4M" },
+  { name: "Cardi B", image: "/src/assets/blog-placeholder-2.jpg", followers: "100M" },
+  { name: "Lil Baby", image: "/src/assets/blog-placeholder-3.jpg", followers: "20.1M" },
+];
+---
+
+<aside class="bg-charcoal p-6 rounded-lg">
+  <h3 class="text-2xl font-heading text-electric-gold mb-6">Artist Spotlight</h3>
+  <ul class="space-y-4">
+    {artists.map(artist => (
+      <li class="flex items-center">
+        <img src={artist.image} alt={artist.name} class="w-16 h-16 rounded-full object-cover border-2 border-electric-gold" />
+        <div class="ml-4">
+          <a href="#" class="text-lg font-bold text-ghost-white hover:text-electric-gold transition-colors">{artist.name}</a>
+          <p class="text-sm text-silver">{artist.followers} Followers</p>
+        </div>
+      </li>
+    ))}
+  </ul>
+</aside>

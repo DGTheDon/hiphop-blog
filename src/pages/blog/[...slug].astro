@@ -1,0 +1,18 @@
+---
+import BlogPost from '../../layouts/BlogPost.astro';
+import { pb } from '../../lib/pocketbase';
+
+export async function getStaticPaths() {
+	const articles = await pb.collection('articles').getFullList();
+	return articles.map((article) => ({
+		params: { slug: article.slug },
+		props: article,
+	}));
+}
+
+const article = Astro.props;
+---
+
+<BlogPost {...article}>
+	<div set:html={article.content} />
+</BlogPost>

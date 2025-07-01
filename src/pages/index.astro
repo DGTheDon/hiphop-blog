@@ -1,0 +1,73 @@
+---
+import BaseHead from '../components/BaseHead.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import Hero from '../components/Hero.astro';
+import { SITE_TITLE, SITE_DESCRIPTION } from '../consts';
+import { pb } from '../lib/pocketbase';
+import TrendingTopics from '../components/TrendingTopics.astro';
+import ArtistSpotlight from '../components/ArtistSpotlight.astro';
+import NewsletterSignup from '../components/NewsletterSignup.astro';
+
+let articles = [];
+let error = null;
+
+try {
+  console.log('Attempting to fetch articles from PocketBase...');
+  articles = await pb.collection('articles').getFullList({
+    sort: '-created',
+  });
+  console.log('Successfully fetched articles:', articles);
+} catch (e) {
+  console.error('Error fetching articles from PocketBase:', e);
+  error = e.message;
+}
+---
+
+<!doctype html>
+<html lang="en">
+	<head>
+		<BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
+	</head>
+	<body class="bg-pure-white text-jet-black dark:bg-rich-black dark:text-ghost-white font-body">
+		<Header />
+		<main class="flex-grow">
+			<Hero />
+			<section id="latest-articles" class="py-12">
+				<div class="container mx-auto grid grid-cols-1 lg:grid-cols-3 gap-12">
+					<div class="lg:col-span-2">
+						<h1 class="text-5xl font-heading text-electric-gold mb-12">Latest Articles</h1>
+						{error ? (
+							<p>Error: {error}</p>
+						) : (
+							<div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+								{articles.map((article) => (
+									<a href={`/blog/${article.slug}`} class="block bg-smoke rounded-lg shadow-lg overflow-hidden transform hover:-translate-y-2 transition-transform duration-300">
+										<div class="relative h-0 pb-[56.25%]">
+											<img src={article.featured_image} alt={article.featured_image_alt} class="absolute inset-0 w-full h-full object-cover" />
+											<div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent"></div>
+										</div>
+										<div class="p-6">
+											<span class="text-sm font-monospace text-neon-green">{article.category}</span>
+											<h2 class="text-2xl font-heading text-ghost-white mt-2 mb-4">{article.title}</h2>
+											<div class="flex items-center text-silver text-sm font-monospace">
+												<span>{article.author.name}</span>
+												<span class="mx-2">•</span>
+												<span>{new Date(article.published_at).toLocaleDateString()}</span>
+											</div>
+										</div>
+									</a>
+								))}
+							</div>
+						)}
+					</div>
+					<div class="space-y-12">
+						<TrendingTopics />
+						<ArtistSpotlight />
+					</div>
+				</div>
+			</section>
+		</main>
+		<Footer />
+	</body>
+</html>
