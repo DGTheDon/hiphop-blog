@@ -7,15 +7,15 @@ const artists = [
 ];
 ---
 
-<aside class="bg-charcoal p-6 rounded-lg">
-  <h3 class="text-2xl font-heading text-electric-gold mb-6">Artist Spotlight</h3>
+<aside class="bg-light-gray dark:bg-charcoal p-6 rounded-lg">
+  <h3 class="text-2xl font-heading text-rich-black dark:text-electric-gold mb-6">Artist Spotlight</h3>
   <ul class="space-y-4">
     {artists.map(artist => (
       <li class="flex items-center">
         <img src={artist.image} alt={artist.name} class="w-16 h-16 rounded-full object-cover border-2 border-electric-gold" />
         <div class="ml-4">
-          <a href="#" class="text-lg font-bold text-ghost-white hover:text-electric-gold transition-colors">{artist.name}</a>
-          <p class="text-sm text-silver">{artist.followers} Followers</p>
+          <a href="#" class="text-lg font-bold text-rich-black dark:text-ghost-white hover:text-electric-gold transition-colors">{artist.name}</a>
+          <p class="text-sm text-charcoal dark:text-silver">{artist.followers} Followers</p>
         </div>
       </li>
     ))}

@@ -2,7 +2,7 @@
 ---
 
 <section class="h-screen min-h-[600px] flex items-center justify-center bg-gradient-to-br from-deep-purple via-rich-black to-charcoal text-center relative overflow-hidden">
-  <div class="absolute inset-0 bg-rich-black/50"></div>
+  <div id="hero-background" class="absolute inset-0 bg-rich-black/50"></div>
   <div class="relative z-10 container mx-auto px-4">
     <h1 class="text-5xl md:text-7xl lg:text-8xl font-heading text-ghost-white uppercase tracking-wider mb-4">
       The Pulse of Hip Hop
@@ -15,3 +15,14 @@
     </a>
   </div>
 </section>
+
+<script>
+  const heroBackground = document.getElementById('hero-background');
+
+  window.addEventListener('scroll', () => {
+    const scrollY = window.scrollY;
+    if (heroBackground) {
+      heroBackground.style.transform = `translateY(${scrollY * 0.5}px)`;
+    }
+  });
+</script>
